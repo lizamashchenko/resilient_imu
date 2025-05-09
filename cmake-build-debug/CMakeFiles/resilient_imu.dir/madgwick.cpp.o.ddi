@@ -1,0 +1,11 @@
+{
+"rules": [
+{
+"primary-output": "CMakeFiles/resilient_imu.dir/madgwick.cpp.o",
+"requires": [
+]
+}
+],
+"version": 0,
+"revision": 0
+}
