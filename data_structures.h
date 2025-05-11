@@ -5,7 +5,7 @@
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 
-struct Relative_Position {
+struct Vector3D {
   double x = 0, y = 0, z = 0;
 };
 
@@ -19,6 +19,10 @@ struct Orientation {
   double roll = 0.0;
   double pitch = 0.0;
   double yaw = 0.0;
+};
+
+struct WorldOrientation {
+  double a_world_x = 0, a_world_y = 0, a_world_z = 0;
 };
 
 #endif //DATA_STRUCTURES_H

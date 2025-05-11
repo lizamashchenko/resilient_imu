@@ -153,16 +153,16 @@ namespace linear_algebra {
             }
         }
 
-        Matrix(const Matrix<T>& other) = default;
-        Matrix(Matrix<T>&& other) = default;
-        Matrix<T>& operator=(const Matrix<T>& other) = default;
-        Matrix<T>& operator=(Matrix<T>&& other) = default;
+        Matrix(const Matrix& other) = default;
+        Matrix(Matrix&& other) = default;
+        Matrix& operator=(const Matrix& other) = default;
+        Matrix& operator=(Matrix&& other) = default;
 
         size_t row_count() const { return rows; }
         size_t col_count() const { return cols; }
 
         Matrix transpose() const {
-            if (data.empty()) return Matrix<T>();
+            if (data.empty()) return Matrix();
 
             size_t rows = data.size();
             size_t cols = data[0].size();
@@ -189,33 +189,33 @@ namespace linear_algebra {
             rows++;
         }
 
-        Matrix<T> operator+(const Matrix<T>& other) const {
+        Matrix operator+(const Matrix& other) const {
             if (rows != other.rows || cols != other.cols)
                 throw std::invalid_argument("Matrix dimensions must match for addition");
 
-            Matrix<T> result(rows, cols);
+            Matrix result(rows, cols);
             for (size_t i = 0; i < rows; ++i)
                 for (size_t j = 0; j < cols; ++j)
                     result.data[i][j] = data[i][j] + other.data[i][j];
             return result;
         }
 
-        Matrix<T> operator-(const Matrix<T>& other) const {
+        Matrix operator-(const Matrix<T>& other) const {
             if (rows != other.rows || cols != other.cols)
                 throw std::invalid_argument("Matrix dimensions must match for subtraction");
 
-            Matrix<T> result(rows, cols);
+            Matrix result(rows, cols);
             for (size_t i = 0; i < rows; ++i)
                 for (size_t j = 0; j < cols; ++j)
                     result.data[i][j] = data[i][j] - other.data[i][j];
             return result;
         }
 
-        Matrix<T> operator*(const Matrix<T>& other) const {
+        Matrix operator*(const Matrix& other) const {
             if (cols != other.rows)
                 throw std::invalid_argument("Invalid dimensions for matrix multiplication");
 
-            Matrix<T> result(rows, other.cols);
+            Matrix result(rows, other.cols);
             for (size_t i = 0; i < rows; ++i)
                 for (size_t j = 0; j < other.cols; ++j)
                     for (size_t k = 0; k < cols; ++k)
@@ -249,8 +249,8 @@ namespace linear_algebra {
             return data[i][j];
         }
 
-        Matrix<T> operator/(double denom) const {
-            Matrix<T> result(rows, cols);
+        Matrix operator/(double denom) const {
+            Matrix result(rows, cols);
 
             for (size_t i = 0; i < rows; ++i) {
                 for (size_t j = 0; j < cols; ++j) {
@@ -261,8 +261,8 @@ namespace linear_algebra {
             return result;
         }
 
-        Matrix<T> operator*(double scale) const {
-            Matrix<T> result(rows, cols);
+        Matrix operator*(double scale) const {
+            Matrix result(rows, cols);
 
             for (size_t i = 0; i < rows; ++i) {
                 for (size_t j = 0; j < cols; ++j) {

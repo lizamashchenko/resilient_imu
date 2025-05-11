@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "imu.h"
+#include "IMUClass.h"
 
 int main() {
     std::string input_file = "../data/imu_data.txt";
@@ -13,8 +13,12 @@ int main() {
         return 1;
     }
 
-    IMU imu_logger_madgwick("../data/madgwick_log.txt");
-    IMU imu_logger_kalman ("../data/kalman_log.txt");
+#ifdef USE_MADGWICK
+    IMU imu_logger("../data/madgwick_log.txt");
+#else
+    IMU imu_logger("../data/kalman_log.txt");
+#endif
+
     std::string line;
     while (std::getline(infile, line)) {
         std::istringstream iss(line);
@@ -25,8 +29,7 @@ int main() {
             continue;
         }
 
-        imu_logger_kalman.receive_imu_data_kalman(ax, ay, az, gx, gy, gz, timestamp);
-        imu_logger_madgwick.receive_imu_data_madgwick(ax, ay, az, gx, gy, gz, timestamp);
+        imu_logger.receive_imu_data(ax, ay, az, gx, gy, gz, timestamp);
     }
 
     return 0;
