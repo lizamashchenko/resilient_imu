@@ -6,12 +6,12 @@
 #define DATA_STRUCTURES_H
 
 struct Relative_Position {
-  double x, y, z;
+  double x = 0, y = 0, z = 0;
 };
 
 struct Telemetry {
-  double ax, ay, az;
-  double gx, gy, gz;
+  double ax = 0, ay = 0, az = 0;
+  double gx = 0, gy = 0, gz = 0;
   // double mx, my, mz;
 };
 

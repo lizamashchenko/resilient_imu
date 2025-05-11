@@ -1,7 +1,0 @@
-ninja_dyndep_version = 1.0
-build CMakeFiles/resilient_imu.dir/main.cpp.o: dyndep
-
-build CMakeFiles/resilient_imu.dir/madgwick.cpp.o: dyndep
-
-build CMakeFiles/resilient_imu.dir/imu.cpp.o: dyndep
-

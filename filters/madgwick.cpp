@@ -3,8 +3,6 @@
 //
 
 #include "madgwick.h"
-#include "Vector.h"
-#include "Matrix.h"
 
 void Madgwick::fuse_data(Telemetry& telem, double dt) {
     Vector<double> accel_v {telem.ax, telem.ay, telem.az};

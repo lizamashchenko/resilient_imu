@@ -5,9 +5,10 @@
 #ifndef MADGWICK_H
 #define MADGWICK_H
 
-#include "data_structures.h"
-#include <stdlib.h>
-#include "Vector.h"
+#include "../data_structures.h"
+#include "../linear_algebra/linear_algebra.h"
+
+using namespace linear_algebra;
 
 class Madgwick {
 private:

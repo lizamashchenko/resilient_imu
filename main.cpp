@@ -13,7 +13,8 @@ int main() {
         return 1;
     }
 
-    IMU imu_logger;
+    IMU imu_logger_madgwick("../data/madgwick_log.txt");
+    IMU imu_logger_kalman ("../data/kalman_log.txt");
     std::string line;
     while (std::getline(infile, line)) {
         std::istringstream iss(line);
@@ -24,7 +25,8 @@ int main() {
             continue;
         }
 
-        imu_logger.receive_imu_data(ax, ay, az, gx, gy, gz, timestamp);
+        imu_logger_kalman.receive_imu_data_kalman(ax, ay, az, gx, gy, gz, timestamp);
+        imu_logger_madgwick.receive_imu_data_madgwick(ax, ay, az, gx, gy, gz, timestamp);
     }
 
     return 0;

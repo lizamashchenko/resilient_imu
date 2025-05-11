@@ -4,12 +4,11 @@ SET(PROJECT_NAME resilient_imu)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(${PROJECT_NAME} main.cpp
-        madgwick.h
-        madgwick.cpp
-        Matrix.h
-        Vector.h
+        filters/madgwick.h
+        filters/madgwick.cpp
         imu.h
         imu.cpp
-        kalman.cpp
-        kalman.h
+        filters/kalman.cpp
+        filters/kalman.h
+        linear_algebra/linear_algebra.h
 )
