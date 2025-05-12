@@ -4,6 +4,11 @@ void MadgwickFilter::fuse_data(Telemetry& telem, double dt) {
     Vector accel_v {telem.ax, telem.ay, telem.az};
     Vector gyro_v {telem.gx, telem.gy, telem.gz};
 
+
+	accel_filtered = low_pass_filter(accel_v, accel_filtered);
+	accel_filtered.normalize();
+
+	beta = adaptive_beta(accel_filtered);
     accel_v.normalize();
 
     Vector q_dot {
@@ -14,9 +19,9 @@ void MadgwickFilter::fuse_data(Telemetry& telem, double dt) {
     };
 
     Vector f {
-		2 * (q[1] * q[3] - q[0] * q[2]) - accel_v[0],
-		2 * (q[0] * q[1] - q[2] * q[3]) - accel_v[1],
-		2 * (0.5 - q[1] * q[1] - q[2] * q[2]) - accel_v[2]
+		2 * (q[1] * q[3] - q[0] * q[2]) - accel_filtered[0],
+		2 * (q[0] * q[1] - q[2] * q[3]) - accel_filtered[1],
+		2 * (0.5 - q[1] * q[1] - q[2] * q[2]) - accel_filtered[2]
     };
 
     Matrix<double> j;

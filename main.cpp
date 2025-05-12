@@ -15,8 +15,10 @@ int main() {
 
 #ifdef USE_MADGWICK
     IMU imu_logger("../data/madgwick_log.txt");
-#else
+#elif USE_KALMAN
     IMU imu_logger("../data/kalman_log.txt");
+#elif USE_RAW
+    IMU imu_logger("../data/raw_log.txt");
 #endif
 
     std::string line;

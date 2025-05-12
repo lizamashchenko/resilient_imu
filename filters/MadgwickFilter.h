@@ -15,7 +15,18 @@ public:
   [[nodiscard]] const Vector<double>& get_quaternion() const;
 private:
   Vector<double> q = {1.0, 0.0, 0.0, 0.0};
-  double beta = 0.1;
+  double beta = 5;
+  double alpha = 0.8; // Smoothing factor for low-pass filter
+  Vector<double> accel_filtered = {0.0, 0.0, 0.0};
+
+  [[nodiscard]] Vector<double> low_pass_filter(const Vector<double>& current, const Vector<double>& previous) const {
+    return previous * alpha + current * (1.0 - alpha);
+  }
+
+  static double adaptive_beta(const Vector<double>& accel) {
+    double accel_magnitude = std::sqrt(accel[0] * accel[0] + accel[1] * accel[1] + accel[2] * accel[2]);
+    return 0.1 + (accel_magnitude - 9.81) * 0.05;
+  }
 };
 
 

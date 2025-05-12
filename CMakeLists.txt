@@ -3,7 +3,7 @@
 
     set(CMAKE_CXX_STANDARD 20)
 
-    set(IMU_FILTER "MADGWICK" CACHE STRING "Choose IMU filter: MADGWICK or KALMAN")
+    set(IMU_FILTER "MADGWICK" CACHE STRING "Choose IMU filter: MADGWICK or KALMAN or RAW")
 
     if (IMU_FILTER STREQUAL "MADGWICK")
         add_compile_definitions(USE_MADGWICK)
@@ -11,8 +11,11 @@
     elseif(IMU_FILTER STREQUAL "KALMAN")
         add_compile_definitions(USE_KALMAN)
         message("USING KALMAN")
+    elseif (IMU_FILTER STREQUAL "RAW")
+        add_compile_definitions(USE_RAW)
+        message("USING RAW")
     else()
-        message(FATAL_ERROR "Invalid IMU_FILTER value. Choose MADGWICK or KALMAN.")
+        message(FATAL_ERROR "Invalid IMU_FILTER value. Choose MADGWICK or KALMAN or RAW")
     endif()
 
 
@@ -25,4 +28,6 @@
             filters/KalmanFilter2D.h
             linear_algebra/LinearAlgebra.h
             filters/IMUFilter.h
+            filters/RawFilter.cpp
+            filters/RawFilter.h
     )

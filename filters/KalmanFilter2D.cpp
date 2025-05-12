@@ -3,7 +3,7 @@
 KalmanFilter2D::KalmanFilter2D(double initial_accel_x, double initial_accel_y, double initial_accel_z, double R_)
     : R(R_),
       P(2, 2, {{1.0, 0.0}, {0.0, 1.0}}),
-      Q(2, 2, {{0.03, 0.0}, {0.0, 0.06}}),
+      Q(2, 2, {{0.1, 0.0}, {0.0, 0.3}}),
       H({1.0, 0.0})
 {
     angle_x = std::atan2(initial_accel_y, initial_accel_z) * 180.0 / M_PI;
