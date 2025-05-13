@@ -3,6 +3,7 @@
 
 #include "IMUFilter.h"
 #include "../data_structures.h"
+#include "../config/configuration.h"
 #include "../linear_algebra/LinearAlgebra.h"
 
 using namespace linear_algebra;
@@ -15,8 +16,8 @@ public:
   [[nodiscard]] const Vector<double>& get_quaternion() const;
 private:
   Vector<double> q = {1.0, 0.0, 0.0, 0.0};
-  double beta = 5;
-  double alpha = 0.8; // Smoothing factor for low-pass filter
+  double beta = MADGWICK_BETA;
+  double alpha = MADGWICK_ALPHA; // Smoothing factor for low-pass filter
   Vector<double> accel_filtered = {0.0, 0.0, 0.0};
 
   [[nodiscard]] Vector<double> low_pass_filter(const Vector<double>& current, const Vector<double>& previous) const {

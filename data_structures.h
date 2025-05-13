@@ -1,7 +1,3 @@
-//
-// Created by liza on 09.04.25.
-//
-
 #ifndef DATA_STRUCTURES_H
 #define DATA_STRUCTURES_H
 

@@ -53,7 +53,7 @@ void MadgwickFilter::update_world_orientation(Telemetry& telem, Orientation orie
 
 	w_orient.a_world_x = telem.ax * (1 - 2*qy*qy - 2*qz*qz) + telem.ay * (2*qx*qy - 2*qz*qw) + telem.az * (2*qx*qz + 2*qy*qw);
 	w_orient.a_world_y = telem.ax * (2*qx*qy + 2*qz*qw) + telem.ay * (1 - 2*qx*qx - 2*qz*qz) + telem.az * (2*qy*qz - 2*qx*qw);
-	w_orient.a_world_z = telem.ax * (2*qx*qz - 2*qy*qw) + telem.ay * (2*qy*qz + 2*qx*qw) + telem.az * (1 - 2*qx*qx - 2*qy*qy) - 9.81;
+	w_orient.a_world_z = telem.ax * (2*qx*qz - 2*qy*qw) + telem.ay * (2*qy*qz + 2*qx*qw) + telem.az * (1 - 2*qx*qx - 2*qy*qy) - GRAVITY;
 }
 
 const Vector<double>& MadgwickFilter::get_quaternion() const { return q; }

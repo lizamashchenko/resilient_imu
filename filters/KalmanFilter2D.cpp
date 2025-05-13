@@ -1,11 +1,26 @@
 #include "KalmanFilter2D.h"
 
-KalmanFilter2D::KalmanFilter2D(double initial_accel_x, double initial_accel_y, double initial_accel_z, double R_)
-    : R(R_),
-      P(2, 2, {{1.0, 0.0}, {0.0, 1.0}}),
-      Q(2, 2, {{0.1, 0.0}, {0.0, 0.3}}),
-      H({1.0, 0.0})
+#include "../config/configuration.h"
+
+KalmanFilter2D::KalmanFilter2D(double initial_accel_x, double initial_accel_y, double initial_accel_z)
+    : R(KALMAN_R_MEASURE),
+      P(2, 2),
+      Q(2, 2),
+      H(2)
 {
+    Q[0][0] = KALMAN_Q_ANGLE;
+    Q[0][1] = 0.0;
+    Q[1][0] = 0.0;
+    Q[1][1] = KALMAN_Q_BIAS;
+
+    H[0] = 1.0;
+    H[1] = 0.0;
+
+    P[0][0] = 1.0;
+    P[0][1] = 0.0;
+    P[1][0] = 0.0;
+    P[1][1] = 1.0;
+
     angle_x = std::atan2(initial_accel_y, initial_accel_z) * 180.0 / M_PI;
     angle_y = std::atan2(-initial_accel_x, std::sqrt(initial_accel_y * initial_accel_y + initial_accel_z * initial_accel_z)) * 180.0 / M_PI;
 }
@@ -24,11 +39,9 @@ void KalmanFilter2D::fuse_data(Telemetry& telem, const double dt) {
     double denom = (H * PHt)[0] + R;                        // scalar
     Matrix<double> K = PHt / denom;                         // 2x1
 
-    // Update step
     double innovation_x = accel_angle_x - angle_x;
     double innovation_y = accel_angle_y - angle_y;
 
-    // fix to conversion to vector
     angle_x += K[0][0] * innovation_x;
     angle_y += K[0][0] * innovation_y;
     bias_x += K[1][0] * innovation_x;
@@ -59,7 +72,7 @@ void KalmanFilter2D::update_world_orientation(Telemetry &telem, Orientation orie
 
     w_orient.a_world_x = telem.ax * cos_p + telem.az * sin_p;
     w_orient.a_world_y = telem.ax * sin_r * sin_p + telem.ay * cos_r - telem.az * sin_r * cos_p;
-    w_orient.a_world_z = -telem.ax * cos_r * sin_p + telem.ay * sin_r + telem.az * cos_r * cos_p - 9.81;
+    w_orient.a_world_z = -telem.ax * cos_r * sin_p + telem.ay * sin_r + telem.az * cos_r * cos_p - GRAVITY;
 }
 
 

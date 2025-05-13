@@ -6,7 +6,7 @@ madgwick = pd.read_csv("./data/madgwick_log.txt", skiprows=1, sep=" ", names=[
     "timestamp", "roll", "pitch", "yaw", "pos_x", "pos_y", "pos_z", "vel_x", "vel_y", "vel_z"])
 kalman = pd.read_csv("./data/kalman_log.txt", skiprows=1, sep=" ", names=[
     "timestamp", "roll", "pitch", "yaw", "pos_x", "pos_y", "pos_z", "vel_x", "vel_y", "vel_z"])
-raw = pd.read_csv("./data/raw_log.txt", skiprows=1, sep=" ", names=[
+raw = pd.read_csv("./data/log.txt", skiprows=1, sep=" ", names=[
     "timestamp", "roll", "pitch", "yaw", "pos_x", "pos_y", "pos_z", "vel_x", "vel_y", "vel_z"])
 
 # Normalize time

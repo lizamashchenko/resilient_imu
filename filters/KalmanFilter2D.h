@@ -19,7 +19,7 @@ private:
     Vector<double> H;  // 1x2
 
 public:
-    KalmanFilter2D(double initial_accel_x = 0, double initial_accel_y = 0, double initial_accel_z = 0, double R_ = 0.0003);
+    KalmanFilter2D(double initial_accel_x = 0, double initial_accel_y = 0, double initial_accel_z = 0);
 
     void fuse_data(Telemetry& telem, double dt) override;
     void update_orientation(Orientation &orient) override;

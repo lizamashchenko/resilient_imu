@@ -4,8 +4,10 @@
 #include <string>
 #include "IMUClass.h"
 
+constexpr double time_interval = 0.1;
+
 int main() {
-    std::string input_file = "../data/imu_data.txt";
+    std::string input_file = "../data/log.txt";
     std::ifstream infile(input_file);
 
     if (!infile.is_open()) {
@@ -22,15 +24,27 @@ int main() {
 #endif
 
     std::string line;
+    std::getline(infile, line);
+    int line_index = 0;
+
+
     while (std::getline(infile, line)) {
         std::istringstream iss(line);
-        double timestamp, gx, gy, gz, ax, ay, az, temp;
+        double ax, ay, az;
+        double gx, gy, gz;
+        double mx, my, mz;
+        double heading, roll, pitch;
+        double qw, qx, qy, qz;
 
-        if (!(iss >> timestamp >> gx >> gy >> gz >> ax >> ay >> az >> temp)) {
+        if (!(iss >> ax >> ay >> az >> gx >> gy >> gz >>
+              mx >> my >> mz >>
+              heading >> roll >> pitch >>
+              qw >> qx >> qy >> qz)) {
             std::cerr << "Invalid line: " << line << std::endl;
             continue;
         }
-
+        double timestamp = line_index * time_interval;
+        line_index++;
         imu_logger.receive_imu_data(ax, ay, az, gx, gy, gz, timestamp);
     }
 
